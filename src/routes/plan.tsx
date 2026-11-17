@@ -1,5 +1,5 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Activity, Camera, Gauge, RefreshCw, Repeat, Target, TrendingUp } from "lucide-react";
+import { Activity, Camera, RefreshCw, Repeat, Target, TrendingUp } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -88,8 +88,7 @@ function PlanPage() {
       <p className="fa-eyebrow">FitAdapt</p>
       <h1 className="fa-title fa-title--md">{planTitle(profile)}</h1>
       <p className="fa-sub">
-        {GOAL_LABELS[profile.goal]} · {FOCUS_LABELS[profile.focus]} · {profile.environment} · level{" "}
-        {state.level.toFixed(1)}
+        {GOAL_LABELS[profile.goal]} · {FOCUS_LABELS[profile.focus]} · {profile.environment}
       </p>
       <div className="fa-row" style={{ marginTop: "1.1rem" }}>
         <Link to="/progress" className="fa-btn fa-btn--outline fa-btn--sm">
@@ -101,7 +100,6 @@ function PlanPage() {
       </div>
 
       <div className="fa-stats">
-        <Stat icon={<Gauge />} label="Difficulty level" value={state.level.toFixed(1)} />
         <Stat icon={<Activity />} label="Est. duration" value={`${estimateMinutes(plan, catalog.exercises)} min`} />
         <Stat icon={<TrendingUp />} label="Sessions logged" value={state.logs.length} />
       </div>
@@ -179,9 +177,6 @@ function PlanPage() {
         </button>
       </div>
 
-      <p className="fa-footer">
-        Rep counting and form checks are calibrated with the <Link to="/dataset">Exercise Detection Dataset</Link>.
-      </p>
     </Screen>
   );
 }

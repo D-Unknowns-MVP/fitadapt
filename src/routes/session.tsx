@@ -261,13 +261,7 @@ function SessionPage() {
                     : "Difficulty held"}
               </h2>
 
-              <p className="fa-sub">
-                Level {state.logs[0]?.levelBefore.toFixed(1)} →{" "}
-                <span className="fa-accent">
-                  {decision.newLevel.toFixed(1)}
-                </span>{" "}
-                / 5
-              </p>
+              <p className="fa-sub">Your next workout has been adjusted for you.</p>
             </div>
           </div>
 
@@ -304,7 +298,6 @@ function SessionPage() {
   if (!item || !ex) return <Loading />;
 
   const isHold = ex.kind === "hold";
-  const lastRom = roms[roms.length - 1] ?? null;
 
   return (
     <Screen>
@@ -365,7 +358,7 @@ function SessionPage() {
         </section>
       ) : (
         <>
-          <div className="fa-stats fa-stats--3">
+          <div className="fa-stats">
             <div className="fa-stat">
               <div className="fa-stat-label">{isHold ? "Seconds" : "Reps"}</div>
               <div className="fa-stat-value">
@@ -382,17 +375,6 @@ function SessionPage() {
               >
                 {setNo}
                 <small>/{item.sets}</small>
-              </div>
-            </div>
-
-            <div className="fa-stat">
-              <div className="fa-stat-label">ROM</div>
-              <div
-                className={`fa-stat-value ${
-                  lastRom !== null && lastRom < 0.7 ? "fa-warn" : ""
-                }`}
-              >
-                {lastRom === null ? "—" : `${Math.round(lastRom * 100)}%`}
               </div>
             </div>
           </div>

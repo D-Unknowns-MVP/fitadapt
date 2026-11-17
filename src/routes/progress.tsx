@@ -34,8 +34,6 @@ function ProgressPage() {
     return {
       name: `#${i + 1}`,
       reps: Math.round(s.completion * 100),
-      rom: s.rom === null ? null : Math.round(s.rom * 100),
-      level: l.levelAfter,
     };
   });
   const totalReps = logs.reduce((a, l) => a + summarize(l.sets).done, 0);
@@ -49,7 +47,6 @@ function ProgressPage() {
       <h1 className="fa-title fa-title--md" style={{ marginTop: "1rem" }}>
         Your progress
       </h1>
-      <p className="fa-sub">Current difficulty level: {state.level.toFixed(1)} / 5</p>
 
       <div className="fa-stats fa-stats--3">
         <Stat label="Sessions" value={logs.length} />
@@ -74,7 +71,6 @@ function ProgressPage() {
                 />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 <Line name="% target reps" type="monotone" dataKey="reps" stroke="var(--chart-1)" strokeWidth={2.5} dot={{ r: 4 }} />
-                <Line name="% ROM" type="monotone" dataKey="rom" stroke="var(--chart-2)" strokeWidth={2.5} dot={{ r: 4 }} connectNulls />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -92,20 +88,15 @@ function ProgressPage() {
               <span className="fa-log-date">{new Date(log.date).toLocaleString()}</span>
             </div>
             <p className="fa-sub">
-              {Math.round(s.completion * 100)}% of target reps
-              {s.rom !== null && ` · ${Math.round(s.rom * 100)}% range of motion`}
-              {s.form !== null && ` · ${Math.round(s.form * 100)}% form`} · felt {FEEL[log.feeling]} ·{" "}
+              {Math.round(s.completion * 100)}% of target reps · felt {FEEL[log.feeling]} ·{" "}
               {Math.max(1, Math.round(log.durationSec / 60))} min
-            </p>
-            <p className="fa-sub">
-              Level {log.levelBefore.toFixed(1)} → {log.levelAfter.toFixed(1)} ({log.decision})
             </p>
             <div className="fa-log-rows">
               {log.sets.map((set, i) => (
                 <div key={i} className="fa-log-row">
                   <span>{findExercise(catalog, set.exerciseId)?.name ?? set.exerciseId}</span>
                   <span>
-                    {set.reps}/{set.target} · {set.tracked ? `ROM ${Math.round(set.rom * 100)}%` : "manual"}
+                    {set.reps}/{set.target}
                   </span>
                 </div>
               ))}
