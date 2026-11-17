@@ -9,6 +9,7 @@ import type { PoseKey } from "./types";
  */
 
 export type JointName = "shoulder" | "elbow" | "hip" | "knee" | "ankle";
+export type SideName = "left" | "right";
 export const JOINTS: JointName[] = ["shoulder", "elbow", "hip", "knee", "ankle"];
 
 export interface LabelRef {
@@ -48,14 +49,34 @@ const SIDES = {
   right: { shoulder: 12, elbow: 14, wrist: 16, hip: 24, knee: 26, ankle: 28, foot: 32 },
 };
 
-/** Returns [shoulder, elbow, hip, knee, ankle] angles for the more visible body side. */
-export function jointAngles(lm: Point[]): { angles: number[]; visibility: number } | null {
+/**
+ * Returns joint angles for a selected body side.
+ * If no side is specified, automatically selects the more visible side.
+ */
+export function jointAngles(
+  lm: Point[],
+  preferredSide?: SideName
+): { angles: number[]; visibility: number; side: SideName } | null {
   if (!lm || lm.length < 33) return null;
+
   const vis = (s: typeof SIDES.left) =>
-    Object.values(s).reduce((a, i) => a + (lm[i]!.visibility ?? 1), 0) / Object.values(s).length;
-  const side = vis(SIDES.left) >= vis(SIDES.right) ? SIDES.left : SIDES.right;
+    Object.values(s).reduce(
+      (a, i) => a + (lm[i]!.visibility ?? 1),
+      0
+    ) / Object.values(s).length;
+
+  const leftVisibility = vis(SIDES.left);
+  const rightVisibility = vis(SIDES.right);
+
+  const sideName: SideName =
+    preferredSide ??
+    (leftVisibility >= rightVisibility ? "left" : "right");
+
+  const side = SIDES[sideName];
   const p = (i: number) => lm[i]!;
+
   return {
+    side: sideName,
     visibility: vis(side),
     angles: [
       angle(p(side.elbow), p(side.shoulder), p(side.hip)),
@@ -66,7 +87,6 @@ export function jointAngles(lm: Point[]): { angles: number[]; visibility: number
     ],
   };
 }
-
 export function classify(angles: number[], k = 7): { key: PoseKey; confidence: number } {
   const dists = POSE_REF.samples.map((s) => {
     let d = 0;
@@ -153,5 +173,123 @@ export class RepCounter {
     this.max = a;
     this.frames = 0;
     this.goodFrames = 0;
+  }
+}
+
+
+// FITADAPT_DATASET_TRACKING
+export type DatasetPoseKey =
+  | "reverse_lunge"
+  | "leg_press"
+  | "burpee"
+  | "kettlebell_swing"
+  | "romanian_deadlift";
+
+export interface DatasetPoseConfig {
+  side: SideName;
+  joint: "hip" | "knee";
+  low: number;
+  high: number;
+  label: string;
+}
+
+export const DATASET_POSE_CONFIG: Record<DatasetPoseKey, DatasetPoseConfig> = {
+  reverse_lunge: {
+    side: "right", joint: "knee", low: 120, high: 165, label: "Reverse Lunge"
+  },
+  leg_press: {
+    side: "left", joint: "knee", low: 100, high: 155, label: "Leg Press"
+  },
+  burpee: {
+    side: "left", joint: "hip", low: 75, high: 155, label: "Burpee"
+  },
+  kettlebell_swing: {
+    side: "left", joint: "hip", low: 115, high: 165, label: "Kettlebell Swing"
+  },
+  romanian_deadlift: {
+    side: "right", joint: "hip", low: 90, high: 155, label: "Romanian Deadlift"
+  },
+};
+
+export function getDatasetPoseConfig(key: PoseKey): DatasetPoseConfig | null {
+  return key in DATASET_POSE_CONFIG
+    ? DATASET_POSE_CONFIG[key as DatasetPoseKey]
+    : null;
+}
+
+/** Require the three landmarks used by the selected joint angle to be visible. */
+export function isDatasetJointVisible(
+  lm: Point[],
+  config: DatasetPoseConfig
+): boolean {
+  const indices =
+    config.joint === "knee"
+      ? config.side === "left" ? [23, 25, 27] : [24, 26, 28]
+      : config.side === "left" ? [11, 23, 25] : [12, 24, 26];
+
+  return indices.every((i) => (lm[i]?.visibility ?? 1) >= 0.65);
+}
+
+/**
+ * Conservative angle-cycle counter for the five additional exercises.
+ * These starting thresholds require live-camera calibration before research use.
+ */
+export class DatasetRepCounter {
+  private start: "low" | "high" | null = null;
+  private crossed = false;
+  private min = Infinity;
+  private max = -Infinity;
+  private frames = 0;
+  reps = 0;
+  lastRom = 0;
+
+  constructor(readonly key: DatasetPoseKey) {}
+
+  push(angles: number[]): RepEvent | null {
+    const config = DATASET_POSE_CONFIG[this.key];
+    const index = JOINTS.indexOf(config.joint);
+    const value = angles[index];
+
+    if (!Number.isFinite(value) || value <= 0) return null;
+
+    const zone =
+      value <= config.low ? "low" :
+      value >= config.high ? "high" : "mid";
+
+    if (this.start === null) {
+      if (zone !== "mid") {
+        this.start = zone;
+        this.reset(value);
+      }
+      return null;
+    }
+
+    this.min = Math.min(this.min, value);
+    this.max = Math.max(this.max, value);
+    this.frames++;
+
+    const opposite = this.start === "low" ? "high" : "low";
+    if (zone === opposite) this.crossed = true;
+
+    if (zone === this.start && this.crossed && this.frames >= 8) {
+      const rom = Math.max(
+        0,
+        Math.min(1, (this.max - this.min) / (config.high - config.low))
+      );
+
+      this.reps++;
+      this.lastRom = rom;
+      this.reset(value);
+      return { rom, form: 0.5 };
+    }
+
+    return null;
+  }
+
+  private reset(value: number) {
+    this.crossed = false;
+    this.min = value;
+    this.max = value;
+    this.frames = 0;
   }
 }
