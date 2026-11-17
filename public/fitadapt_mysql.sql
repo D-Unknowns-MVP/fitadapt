@@ -85,7 +85,7 @@ INSERT INTO equipment (id, label) VALUES
 INSERT INTO exercises (id, name, muscle, difficulty, kind, low_impact, instruction, pose_label, sort_order) VALUES
   ('sit_up', 'Sit-up', 'core', 2, 'reps', 0, 'Roll up one vertebra at a time, exhale at the top.', 'sit_ups', 1),
   ('lying_leg_raise', 'Lying leg raise', 'core', 2, 'reps', 1, 'Low back glued down, lower the legs slowly.', NULL, 2),
-  ('bicycle_crunch', 'Bicycle crunch', 'core', 2, 'reps', 1, 'Elbow to opposite knee, slow and controlled.', NULL, 3),
+  ('bicycle_crunch', 'Bicycle crunch', 'core', 2, 'reps', 1, 'Elbow to opposite knee, slow and controlled.', 'bicycle_crunch', 3),
   ('russian_twist', 'Russian twist', 'core', 2, 'reps', 1, 'Lean back, chest proud, rotate from the ribs.', 'russian_twists', 4),
   ('crunch', 'Crunch', 'core', 1, 'reps', 1, 'Lift the shoulders, keep the chin off the chest.', NULL, 5),
   ('plank', 'Plank', 'core', 1, 'hold', 1, 'Keep your body straight from head to heels, brace your core, and avoid letting your hips sag or rise.', 'plank', 6),
