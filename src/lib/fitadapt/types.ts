@@ -13,7 +13,21 @@ export type Equipment =
   | "mat"
   | "jump_rope";
 export type Muscle = "core" | "chest" | "back" | "shoulders" | "arms" | "legs" | "glutes" | "cardio";
-export type PoseKey = "jumping_jacks" | "pull_ups" | "push_ups" | "russian_twists" | "squats" | "glute_bridge" | "high_knees" | "mountain_climber" | "plank" | "sit_ups" | "bicycle_crunch";
+export type PoseKey =
+  | "jumping_jacks"
+  | "pull_ups"
+  | "push_ups"
+  | "russian_twists"
+  | "squats"
+  | "glute_bridge"
+  | "high_knees"
+  | "mountain_climber"
+  | "plank"
+  | "reverse_lunge"
+  | "kettlebell_swing"
+  | "romanian_deadlift"
+  | "leg_press"
+  | "burpee";
 
 export interface Exercise {
   id: string;
