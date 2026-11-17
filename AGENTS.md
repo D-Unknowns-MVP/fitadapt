@@ -15,6 +15,6 @@
 - Exercise database + TOPSIS criteria source of truth is `src/lib/fitadapt/catalog.ts`; `database/fitadapt_mysql.sql` and `public/fitadapt_mysql.sql` are generated from it with `bun scripts/build_mysql_seed.ts` — regenerate after editing the catalog so MySQL and the app stay identical.
 - The app reads the catalog through `getCatalog` (server function); the MySQL database runs locally (unreachable from the hosted app), so it serves the generated seed until a reachable MySQL host is wired in there.
 - Camera pose tracking runs fully on-device (MediaPipe loaded dynamically in `PoseTracker`); never upload frames.
-- `src/data/pose-reference.json` is generated from the Exercise Detection Dataset by `scripts/build_pose_reference.py`; rep thresholds, ROM span, form bands and k-NN samples all come from it — don't hand-tune those numbers in code.
+- `src/data/pose-reference.json` is generated from the Exercise Detection Dataset by `scripts/build_pose_reference.py`, with extra exercise CSVs (e.g. sit-ups) merged in by `scripts/add_pose_label.py`; rep thresholds, ROM span, form bands and k-NN samples all come from it — don't hand-tune those numbers in code.
 - UI is styled with plain CSS classes (`fa-*`) in `src/fitadapt.css` using the design tokens from `src/styles.css`; avoid Tailwind utility classes in FitAdapt screens.
 - TOPSIS, adaptation rules and rep counting are pure modules covered by `src/lib/fitadapt/fitadapt.test.ts`.

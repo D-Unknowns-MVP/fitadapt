@@ -41,7 +41,7 @@ const INDOOR = ["home", "gym"] as Exercise["environments"];
 
 export const EXERCISES: Exercise[] = [
   // ── Core ───────────────────────────────────────────
-  { id: "sit_up", name: "Sit-up", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: false, instruction: "Roll up one vertebra at a time, exhale at the top." },
+  { id: "sit_up", name: "Sit-up", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: false, instruction: "Roll up one vertebra at a time, exhale at the top.", pose: "sit_ups" },
   { id: "lying_leg_raise", name: "Lying leg raise", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(2, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Low back glued down, lower the legs slowly." },
   { id: "bicycle_crunch", name: "Bicycle crunch", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Elbow to opposite knee, slow and controlled." },
   { id: "russian_twist", name: "Russian twist", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "dumbbells", "kettlebell", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Lean back, chest proud, rotate from the ribs.", pose: "russian_twists" },

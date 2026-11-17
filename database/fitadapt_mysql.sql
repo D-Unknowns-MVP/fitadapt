@@ -83,13 +83,13 @@ INSERT INTO equipment (id, label) VALUES
   ('jump_rope', 'Jump rope');
 
 INSERT INTO exercises (id, name, muscle, difficulty, kind, low_impact, instruction, pose_label, sort_order) VALUES
-  ('sit_up', 'Sit-up', 'core', 2, 'reps', 0, 'Roll up one vertebra at a time, exhale at the top.', NULL, 1),
+  ('sit_up', 'Sit-up', 'core', 2, 'reps', 0, 'Roll up one vertebra at a time, exhale at the top.', 'sit_ups', 1),
   ('lying_leg_raise', 'Lying leg raise', 'core', 2, 'reps', 1, 'Low back glued down, lower the legs slowly.', NULL, 2),
   ('bicycle_crunch', 'Bicycle crunch', 'core', 2, 'reps', 1, 'Elbow to opposite knee, slow and controlled.', NULL, 3),
   ('russian_twist', 'Russian twist', 'core', 2, 'reps', 1, 'Lean back, chest proud, rotate from the ribs.', 'russian_twists', 4),
   ('crunch', 'Crunch', 'core', 1, 'reps', 1, 'Lift the shoulders, keep the chin off the chest.', NULL, 5),
-  ('plank', 'Plank', 'core', 1, 'hold', 1, 'Straight line head to heels, squeeze glutes.', NULL, 6),
-  ('mountain_climber', 'Mountain climber', 'core', 3, 'reps', 0, 'Hips level, drive the knees fast toward the chest.', NULL, 7),
+  ('plank', 'Plank', 'core', 1, 'hold', 1, 'Keep your body straight from head to heels, brace your core, and avoid letting your hips sag or rise.', 'plank', 6),
+  ('mountain_climber', 'Mountain climber', 'core', 3, 'reps', 0, 'Hips level, drive the knees fast toward the chest.', 'mountain_climber', 7),
   ('hanging_knee_raise', 'Hanging knee raise', 'core', 4, 'reps', 1, 'No swinging — curl the pelvis up to the ribs.', NULL, 8),
   ('cable_crunch', 'Cable crunch', 'core', 3, 'reps', 1, 'Hips still, crunch the ribs toward the pelvis.', NULL, 9),
   ('knee_push_up', 'Knee push-up', 'chest', 1, 'reps', 1, 'Knees down, body straight from knees to head.', 'push_ups', 10),
@@ -113,18 +113,19 @@ INSERT INTO exercises (id, name, muscle, difficulty, kind, low_impact, instructi
   ('barbell_back_squat', 'Barbell back squat', 'legs', 4, 'reps', 0, 'Brace, break at hips and knees, hit depth.', 'squats', 28),
   ('wall_sit', 'Wall sit', 'legs', 2, 'hold', 1, 'Thighs parallel, back flat on the wall.', NULL, 29),
   ('reverse_lunge', 'Reverse lunge', 'legs', 2, 'reps', 1, 'Step back, back knee kisses the floor.', NULL, 30),
-  ('glute_bridge', 'Glute bridge', 'glutes', 1, 'reps', 1, 'Drive through the heels, squeeze at the top.', NULL, 31),
+  ('glute_bridge', 'Glute bridge', 'glutes', 1, 'reps', 1, 'Drive through the heels, squeeze at the top.', 'glute_bridge', 31),
   ('kettlebell_swing', 'Kettlebell swing', 'glutes', 3, 'reps', 0, 'Hinge, snap the hips, float the bell to chest height.', NULL, 32),
   ('romanian_deadlift', 'Romanian deadlift', 'glutes', 3, 'reps', 1, 'Soft knees, push the hips back, flat spine.', NULL, 33),
   ('leg_press', 'Leg press', 'legs', 2, 'reps', 1, 'Lower until knees reach 90°, don''t lock out hard.', NULL, 34),
   ('jumping_jack', 'Jumping jack', 'cardio', 1, 'reps', 0, 'Arms overhead as the feet jump wide, stay light.', 'jumping_jacks', 35),
-  ('high_knees', 'High knees', 'cardio', 2, 'reps', 0, 'Knees to hip height, quick feet, tall chest.', NULL, 36),
+  ('high_knees', 'High knees', 'cardio', 2, 'reps', 0, 'Knees to hip height, quick feet, tall chest.', 'high_knees', 36),
   ('burpee', 'Burpee', 'cardio', 4, 'reps', 0, 'Chest to floor, jump up with arms overhead.', NULL, 37),
   ('jump_rope', 'Jump rope', 'cardio', 2, 'reps', 0, 'Wrists turn the rope, small bounces on the toes.', NULL, 38),
   ('step_jack', 'Step jack', 'cardio', 1, 'reps', 1, 'Step one foot out as the arms rise — no jumping.', NULL, 39);
 
 INSERT INTO exercise_secondary_muscles (exercise_id, muscle) VALUES
   ('plank', 'shoulders'),
+  ('plank', 'glutes'),
   ('mountain_climber', 'cardio'),
   ('mountain_climber', 'shoulders'),
   ('hanging_knee_raise', 'arms'),
