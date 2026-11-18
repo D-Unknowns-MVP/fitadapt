@@ -56,7 +56,7 @@ export function PoseTracker({ poseKey, resetKey, paused, onRep }: Props) {
 
   // All exercises now use the dataset-derived RepCounter.
   useEffect(() => {
-    counterRef.current = new RepCounter(poseKey);
+    counterRef.current = POSE_REF.labels[poseKey] ? new RepCounter(poseKey) : null;
   }, [poseKey, resetKey]);
 
   useEffect(() => {
@@ -207,7 +207,7 @@ export function PoseTracker({ poseKey, resetKey, paused, onRep }: Props) {
                 if (datasetConfig) {
                   // The user already selected this exercise.
                   setDetected({
-                    label: POSE_REF.labels[poseKey].label,
+                    label: POSE_REF.labels[poseKey]?.label ?? poseKey,
                     confidence: 1,
                   });
                 } else {
