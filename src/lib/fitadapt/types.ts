@@ -28,6 +28,8 @@ export type PoseKey =
   | "romanian_deadlift"
   | "leg_press"
   | "burpee"
+  | "sit_ups"
+  | "bicycle_crunch"
   | "crunch"
   | "lying_leg_raise"
   | "hanging_knee_raise";
