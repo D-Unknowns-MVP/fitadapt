@@ -117,3 +117,10 @@ describe("body build look", () => {
     expect(bulk.restSec).toBe(90);
   });
 });
+
+describe("pose reference coverage", () => {
+  it("every camera-tracked exercise (except plank hold) has dataset reference data", () => {
+    const missing = EXERCISES.filter((e) => e.pose && e.pose !== "plank" && !POSE_REF.labels[e.pose]).map((e) => e.id);
+    expect(missing).toEqual([]);
+  });
+});
