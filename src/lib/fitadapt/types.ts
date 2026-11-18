@@ -27,7 +27,10 @@ export type PoseKey =
   | "kettlebell_swing"
   | "romanian_deadlift"
   | "leg_press"
-  | "burpee";
+  | "burpee"
+  | "crunch"
+  | "lying_leg_raise"
+  | "hanging_knee_raise";
 
 export interface Exercise {
   id: string;

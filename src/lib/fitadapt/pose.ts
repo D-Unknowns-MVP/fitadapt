@@ -248,7 +248,7 @@ export class DatasetRepCounter {
   push(angles: number[]): RepEvent | null {
     const config = DATASET_POSE_CONFIG[this.key];
     const index = JOINTS.indexOf(config.joint);
-    const value = angles[index];
+    const value = angles[index] ?? NaN;
 
     if (!Number.isFinite(value) || value <= 0) return null;
 

@@ -43,10 +43,10 @@ const INDOOR = ["home", "gym"] as Exercise["environments"];
 export const EXERCISES: Exercise[] = [
   // ── Core ───────────────────────────────────────────
   { id: "sit_up", name: "Sit-up", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: false, instruction: "Roll up one vertebra at a time, exhale at the top.", pose: "sit_ups" },
-  { id: "lying_leg_raise", name: "Lying leg raise", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(2, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Low back glued down, lower the legs slowly." },
+  { id: "lying_leg_raise", name: "Lying leg raise", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(2, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Low back glued down, lower the legs slowly.", pose: "lying_leg_raise" },
   { id: "bicycle_crunch", name: "Bicycle crunch", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Elbow to opposite knee, slow and controlled.", pose: "bicycle_crunch" },
   { id: "russian_twist", name: "Russian twist", muscle: "core", secondary: [], difficulty: 2, requires: [], worksWith: ["bodyweight", "dumbbells", "kettlebell", "mat"], environments: ALL, goals: g(3, 2, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Lean back, chest proud, rotate from the ribs.", pose: "russian_twists" },
-  { id: "crunch", name: "Crunch", muscle: "core", secondary: [], difficulty: 1, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(2, 1, 4, 4, 2), kind: "reps", lowImpact: true, instruction: "Lift the shoulders, keep the chin off the chest." },
+  { id: "crunch", name: "Crunch", muscle: "core", secondary: [], difficulty: 1, requires: [], worksWith: ["bodyweight", "mat"], environments: ALL, goals: g(2, 1, 4, 4, 2), kind: "reps", lowImpact: true, instruction: "Lift the shoulders, keep the chin off the chest.", pose: "crunch" },
   {
     id: "plank",
     name: "Plank",
@@ -63,7 +63,7 @@ export const EXERCISES: Exercise[] = [
     pose: "plank",
   },
   { id: "mountain_climber", name: "Mountain climber", muscle: "core", secondary: ["cardio", "shoulders"], difficulty: 3, requires: [], worksWith: ["bodyweight"], environments: ALL, goals: g(5, 2, 4, 3, 3), kind: "reps", lowImpact: false, instruction: "Hips level, drive the knees fast toward the chest.", pose: "mountain_climber" },
-  { id: "hanging_knee_raise", name: "Hanging knee raise", muscle: "core", secondary: ["arms"], difficulty: 4, requires: ["pullup_bar"], worksWith: ["pullup_bar"], environments: ["home", "gym", "outdoors"], goals: g(2, 3, 5, 4, 4), kind: "reps", lowImpact: true, instruction: "No swinging — curl the pelvis up to the ribs." },
+  { id: "hanging_knee_raise", name: "Hanging knee raise", muscle: "core", secondary: ["arms"], difficulty: 4, requires: ["pullup_bar"], worksWith: ["pullup_bar"], environments: ["home", "gym", "outdoors"], goals: g(2, 3, 5, 4, 4), kind: "reps", lowImpact: true, instruction: "No swinging — curl the pelvis up to the ribs.", pose: "hanging_knee_raise" },
   { id: "cable_crunch", name: "Cable crunch", muscle: "core", secondary: [], difficulty: 3, requires: ["machines"], worksWith: ["machines"], environments: ["gym"], goals: g(2, 3, 5, 4, 3), kind: "reps", lowImpact: true, instruction: "Hips still, crunch the ribs toward the pelvis." },
 
   // ── Chest / shoulders / arms ───────────────────────
