@@ -31,6 +31,8 @@ export type PoseKey =
   | "sit_ups"
   | "bicycle_crunch"
   | "crunch"
+  | "dumbbell_row"
+  | "dumbbell_shoulder_press"
   | "lying_leg_raise"
   | "hanging_knee_raise";
 
